@@ -87,7 +87,7 @@ def train(args) :
     optimizer = optim.SGD(model.parameters(), lr=args.init_lr, momentum=0.9)
 
     # -- Scheduler
-    scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.1)
+    scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.1)
     
     # -- Logging
     writer = SummaryWriter(args.log_dir)

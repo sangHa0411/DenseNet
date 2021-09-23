@@ -1,5 +1,5 @@
 import numpy as np
-import torch.version as transforms
+import torchvision.transforms as transforms
 from torch.utils.data import Dataset
 
 class ImageDataset(Dataset) :
@@ -18,13 +18,26 @@ class ImageDataset(Dataset) :
         return img_data , img_label
 
 
-class ImageTransforms :
+
+class TrainTransforms :
     def __init__(self, org_size, tar_size) :
         self.org_size = org_size
         self.tar_size = tar_size
         self.transform = transforms.Compose([
             transforms.Resize(org_size),
             transforms.RandomHorizontalFlip(p=0.5),
+            transforms.Resize(tar_size),
+            transforms.Normalize(mean=(0.5, 0.5, 0.5), std=(0.2, 0.2, 0.2))
+        ])
+
+    def __call__(self, img_tensor) :
+        return self.transform(img_tensor)
+
+
+class ValTransforms :
+    def __init__(self, tar_size) :
+        self.tar_size = tar_size
+        self.transform = transforms.Compose([
             transforms.Resize(tar_size),
             transforms.Normalize(mean=(0.5, 0.5, 0.5), std=(0.2, 0.2, 0.2))
         ])

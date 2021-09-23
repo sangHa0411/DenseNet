@@ -64,6 +64,7 @@ def train(args) :
 
     # -- Scalor & CutMix
     train_transform = TrainTransforms(args.org_size, args.input_size)
+    norm_transform = transforms.Normalize(mean=(0.5, 0.5, 0.5), std=(0.2, 0.2, 0.2))
     val_transform = ValTransforms(args.input_size)
     img_cutmix = CutMix(args.input_size, args.input_size)
 
@@ -106,11 +107,11 @@ def train(args) :
             img_data = img_data.float().to(device) / 255
             img_label = img_label.to(device)
 
+            optimizer.zero_grad()
+            
             img_data = train_transform(img_data)
             img_data, img_label = img_cutmix(img_data, img_label)
-
-            optimizer.zero_grad()
-
+            img_data = norm_transform(img_data)
             img_out = model(img_data)
         
             loss = loss_fn(img_out, img_label)
@@ -137,7 +138,6 @@ def train(args) :
                 img_label = img_label.to(device)
 
                 img_data = val_transform(img_data)
-
                 img_out = model(img_data)
         
                 loss_eval += loss_fn(img_out, img_label)

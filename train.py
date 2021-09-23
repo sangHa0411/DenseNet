@@ -106,7 +106,7 @@ def train(args) :
             img_data = img_data.float().to(device) / 255
             img_label = img_label.to(device)
 
-            img_data = img_transform(img_data)
+            img_data = train_transform(img_data)
             img_data, img_label = img_cutmix(img_data, img_label)
 
             optimizer.zero_grad()
@@ -136,7 +136,7 @@ def train(args) :
                 img_data = img_data.float().to(device) / 255
                 img_label = img_label.to(device)
 
-                img_data = img_transform(img_data)
+                img_data = val_transform(img_data)
 
                 img_out = model(img_data)
         

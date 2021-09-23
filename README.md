@@ -30,7 +30,7 @@
       * Step Size : 20
       * Gamma = 0.1
   3. Epochs : 100
-  4. Batch size : 256
+  4. Batch size : 128
 
 ## Data 
   1. ImageNet

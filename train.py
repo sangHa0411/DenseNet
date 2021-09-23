@@ -1,5 +1,3 @@
-
-from dataset import ImageDataset, ImageTransforms
 import os
 import sys
 import random
@@ -65,7 +63,8 @@ def train(args) :
     )
 
     # -- Scalor & CutMix
-    img_transform = ImageTransforms(args.org_size, args.input_size)
+    train_transform = TrainTransforms(args.org_size, args.input_size)
+    val_transform = ValTransforms(args.input_size)
     img_cutmix = CutMix(args.input_size, args.input_size)
 
     # -- Model Specification
@@ -75,15 +74,14 @@ def train(args) :
     layer_sizes = [6,12,32,32]
 
     # -- Model
-    model = DenseNet(input_size, args.input_size,
+    model = DenseNet(
+        input_size = args.input_size,
         layer_list = layer_sizes, 
-        growth_rate=growth_rate, 
-        image_size=args.img_size, 
+        growth_rate = growth_rate, 
         in_kernal = start_kernal, 
         kernal_size = kernal_size, 
         class_size=1000
     ).to(device)
-    
 
     # -- Optimizer
     optimizer = optim.SGD(model.parameters(), lr=args.init_lr, momentum=0.9)

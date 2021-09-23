@@ -1,17 +1,15 @@
 # ImageNet Classification
 
-
 ## Model 
   1. DenseNet 169
   
 ## Model Specification
-  1. Total layer size : 34
-  2. Input image size : 224
-  4. Input kernal size : 7
-  5. Layer size list : [6, 12, 32, 32]
-  6. Growth Rate : 24
-  7. Kernal size : 3
-  8. Class size : 1000
+  1. Input image size : 224
+  2. Input kernal size : 7
+  3. Layer size list : [6, 12, 32, 32]
+  4. Growth Rate : 24
+  5. Kernal size : 3
+  6. Class size : 1000
 
 ## Data Augmentation
   1. Train

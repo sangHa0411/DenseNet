@@ -26,7 +26,7 @@ class TrainTransforms :
         self.transform = transforms.Compose([
             transforms.Resize(org_size),
             transforms.RandomHorizontalFlip(p=0.5),
-            transforms.Resize(tar_size),
+            transforms.RandomCrop(tar_size),
             transforms.Normalize(mean=(0.5, 0.5, 0.5), std=(0.2, 0.2, 0.2))
         ])
 

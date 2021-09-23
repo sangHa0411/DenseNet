@@ -2,8 +2,7 @@ import torch
 import torch.nn.functional as F
 
 def acc_fn(y_output , y_label) :
-    y_arg = torch.argmax(y_output , dim = -1)
-    y_acc = (y_arg == y_label).float()    
+    y_acc = (torch.argmax(y_output, dim = -1) == torch.argmax(y_label, dim = -1)).float()    
     y_acc = torch.mean(y_acc)
     return y_acc
 

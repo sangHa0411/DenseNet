@@ -20,22 +20,23 @@
       > 5) CutMix
 
   2. Test
-      > 1) Resize (size : 225)
+      > 1) Resize (size : 224)
       > 2) Normalize
 
 ## Training 
   1. Optimizer : SGD (momentum = 0.9)
   2. Scheudler : StepLR
       * Init learning rate : 1e-2
-      * Step Size : 20
-      * Gamma = 0.1
+      * Step Size : 10
+      * Gamma = 0.5
   3. Epochs : 100
-  4. Batch size : 128
+  4. Batch size : 64
 
 ## Data 
   1. ImageNet
-      1. Data Size : 700000
-      2. Class Size : 1000
+      1. Train Data Size : 1000000
+      2. Val Data Size : 50000
+      3. Class Size : 1000
 
 ## Reference
   1. Densenet : https://arxiv.org/pdf/1608.06993.pdf

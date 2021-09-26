@@ -64,8 +64,8 @@ def train(args) :
 
     # -- Scalor & CutMix
     train_transform = TrainTransforms(args.org_size, args.input_size)
-    norm_transform = transforms.Normalize(mean=(0.5, 0.5, 0.5), std=(0.2, 0.2, 0.2))
     val_transform = ValTransforms(args.input_size)
+
     img_cutmix = CutMix(args.input_size, args.input_size)
 
     # -- Model Specification
@@ -106,14 +106,13 @@ def train(args) :
         for img_data, img_label in train_loader :
             img_data = img_data.float().to(device) / 255
             img_label = img_label.to(device)
+            img_data, img_label = img_cutmix(img_data, img_label)
 
             optimizer.zero_grad()
-            
+
             img_data = train_transform(img_data)
-            img_data, img_label = img_cutmix(img_data, img_label)
-            img_data = norm_transform(img_data)
             img_out = model(img_data)
-        
+            
             loss = loss_fn(img_out, img_label)
             acc = acc_fn(img_out, img_label)
 
@@ -122,7 +121,7 @@ def train(args) :
         
             progressLearning(idx, len(train_loader), loss.item(), acc.item())
 
-            if (idx + 1) % 10 == 0 :
+            if (idx + 1) % 100 == 0 :
                 writer.add_scalar('train/loss', loss.item(), log_count)
                 writer.add_scalar('train/acc', acc.item(), log_count)
                 log_count += 1
